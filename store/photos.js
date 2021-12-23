@@ -8,52 +8,52 @@ const state = () => ({
     lastSearch: null,
     listSearch: []
   }
-});
+})
 
 const mutations = {
-  SET_PHOTOS(state, data) {
-    state.photos.items.push(...data);
-    state.photos.loading = false;
+  SET_PHOTOS (state, data) {
+    state.photos.items.push(...data)
+    state.photos.loading = false
   },
-  SET_SEARCH(state, data) {
-    state.search.lastSearch = data.lastSearch;
-    state.search.listSearch.push(...data.lastSearch);
+  SET_SEARCH (state, data) {
+    state.search.lastSearch = data.lastSearch
+    state.search.listSearch.push(...data.lastSearch)
   },
 
-  SET_PAGE(state, data) {
-    state.page += data;
+  SET_PAGE (state, data) {
+    state.page += data
   },
-  CLEAN_PHOTO(state) {
-    state.page = 1;
-    state.photos.items = [];
+  CLEAN_PHOTO (state) {
+    state.page = 1
+    state.photos.items = []
   }
 }
 
 const actions = {
-  async all({commit, state}, data) {
-    if(data.type === 'infinity') {
-      commit('SET_PAGE', 1);
+  async all ({ commit, state }, data) {
+    if (data.type === 'infinity') {
+      commit('SET_PAGE', 1)
     }
     await this.$axios.$get(`v1/curated?per_page=${data.perPage}&page=${state.page}`).then((response) => {
-      if(data.infitityState !== null) {
+      if (data.infitityState !== null) {
         if (response.photos.length) {
-          data.infitityState.loaded();
+          data.infitityState.loaded()
         } else {
-          data.infitityState.complete();
+          data.infitityState.complete()
         }
       }
-      let photos = [];
+      const photos = []
       response.photos.map((item, index) => {
-        photos.push({
+        return photos.push({
           id: item.id,
           alt: item.alt,
-          avgColor: item['avg_color'],
+          avgColor: item.avg_color,
           height: item.height,
           width: item.width,
           liked: item.liked,
           photographer: item.photographer,
-          photographerId: item['photographer_id'],
-          photographerUrl: item['photographer_url'],
+          photographerId: item.photographer_id,
+          photographerUrl: item.photographer_url,
           url: item.url,
           src: {
             landscape: item.src.landscape,
@@ -64,48 +64,48 @@ const actions = {
             portrait: item.src.portrait,
             small: item.src.small,
             tiny: item.src.tiny
-
           }
         })
       })
 
       commit('SET_PHOTOS', photos)
+      return photos
     }).catch((e) => {
-
-      if(data.infitityState !== null) {
-        data.infitityState.complete();
+      if (data.infitityState !== null) {
+        data.infitityState.complete()
       }
-      console.log(e);
-    });
+
+      return e
+    })
   },
 
-  async search({commit, state}, data) {
-    if(data.type === 'infinity') {
-      commit('SET_PAGE', 1);
+  async search ({ commit, state }, data) {
+    if (data.type === 'infinity') {
+      commit('SET_PAGE', 1)
     }
     await this.$axios.$get(`v1/search?query=${data.search}&per_page=${data.perPage}&page=${state.page}`).then((response) => {
-      commit("SET_SEARCH", {
-        lastSearch: data.search,
+      commit('SET_SEARCH', {
+        lastSearch: data.search
       })
-      if(data.infitityState !== null) {
+      if (data.infitityState !== null) {
         if (response.photos.length) {
-          data.infitityState.loaded();
+          data.infitityState.loaded()
         } else {
-          data.infitityState.complete();
+          data.infitityState.complete()
         }
       }
-      let photos = [];
+      const photos = []
       response.photos.map((item, index) => {
-        photos.push({
+        return photos.push({
           id: item.id,
           alt: item.alt,
-          avgColor: item['avg_color'],
+          avgColor: item.avg_color,
           height: item.height,
           width: item.width,
           liked: item.liked,
           photographer: item.photographer,
-          photographerId: item['photographer_id'],
-          photographerUrl: item['photographer_url'],
+          photographerId: item.photographer_id,
+          photographerUrl: item.photographer_url,
           url: item.url,
           src: {
             landscape: item.src.landscape,
@@ -122,18 +122,19 @@ const actions = {
       })
 
       commit('SET_PHOTOS', photos)
+      return photos
     }).catch((e) => {
-      if(data.infitityState !== null) {
-        data.infitityState.complete();
+      if (data.infitityState !== null) {
+        data.infitityState.complete()
       }
 
-      console.log(e);
-    });
-  },
+      return e
+    })
+  }
 }
 
 export default {
   state,
   mutations,
   actions
-};
+}

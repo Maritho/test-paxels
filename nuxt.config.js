@@ -28,10 +28,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    {src: '~/plugins/persistedState.js', mode: 'client'},
-    {src: '~/plugins/axios.js', mode: 'client'},
-    {src: '~/plugins/debounce.js', mode: 'client'},
-    {src: '~/plugins/infinitiLoading.js', mode: 'client'},
+    { src: '~/plugins/persistedState.js', mode: 'client' },
+    { src: '~/plugins/axios.js', mode: 'client' },
+    { src: '~/plugins/debounce.js', mode: 'client' },
+    { src: '~/plugins/infinitiLoading.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -54,14 +54,14 @@ export default {
       audios: true,
       iframes: false,
       native: false,
-      directiveOnly: false,
+      directiveOnly: false
     }]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: 'https://api.pexels.com',
-    proxyHeaders: false,
+    proxyHeaders: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
