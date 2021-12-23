@@ -5,9 +5,9 @@
     </form>
     <div class="photo-grid">
       <div v-for="(item, idx) in $store.state.photos.photos.items" :key="idx" class="photo-grid-item">
-        <img v-if="item.src" :src="item.src.medium">
+        <img v-if="item.src" :src="item.src.medium" alt="Pexels">
         <div class="description">
-          <b>{{ item.photographer }}</b>
+          <strong>{{ item.photographer }}</strong>
         </div>
       </div>
       <infinite-loading @infinite="infiniteHandler" />
