@@ -79,6 +79,12 @@ body {
     form {
       margin: 5px;
     }
+    .photo-grid {
+      text-align: center;
+      .photo-grid-item img {
+        width: 48vw;
+      }
+    }
   }
 }
 
