@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'test-lead-engineer',
+    title: 'Test Lead Engineer',
     htmlAttrs: {
       lang: 'en'
     },
@@ -19,12 +19,19 @@ export default {
     ]
   },
 
+  loading: '~/components/Loading',
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@assets/styles/main.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {src: '~/plugins/persistedState.js', mode: 'client'},
+    {src: '~/plugins/axios.js', mode: 'client'},
+    {src: '~/plugins/debounce.js', mode: 'client'},
+    {src: '~/plugins/infinitiLoading.js', mode: 'client'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,17 +40,29 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    // '@nuxtjs/eslint-module'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['nuxt-lazy-load', {
+      defaultImage: '/loading.gif',
+      images: true,
+      videos: true,
+      audios: true,
+      iframes: false,
+      native: false,
+      directiveOnly: false,
+    }]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: 'https://api.pexels.com',
+    proxyHeaders: false,
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
