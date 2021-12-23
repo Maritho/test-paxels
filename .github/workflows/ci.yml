@@ -1,13 +1,13 @@
-name: ci
+name: CI/CD
 
 on:
   push:
     branches:
-      - main
+      - staging
       - master
   pull_request:
     branches:
-      - main
+      - staging
       - master
 
 jobs:
@@ -45,3 +45,7 @@ jobs:
 
       - name: Run tests 🧪
         run: npm run test
+
+      - name: Vercel Action
+        uses: amondnet/vercel-action@v20.0.0
+        run: npm run deploy
