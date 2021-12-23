@@ -72,3 +72,13 @@ body {
     }
   }
 }
+
+@media (max-width: 575.98px) {
+  .container {
+    width: 100vw;
+    form {
+      margin: 5px;
+    }
+  }
+}
+
